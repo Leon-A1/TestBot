@@ -10,7 +10,7 @@ from modules.html_generator import chat_html_wrapper
 from modules.text_generation import stop_everything_event
 from modules.utils import gradio
 
-inputs = ('Chat input', 'start_with', 'interface_state')
+inputs = ('Chat input',  'interface_state')
 reload_arr = ('history', 'name1', 'name2', 'mode', 'chat_style')
 clear_arr = ('Clear history-confirm', 'Clear history', 'Clear history-cancel')
 
@@ -27,25 +27,12 @@ def create_ui():
             shared.gradio['Stop'] = gr.Button('Stop', elem_id='stop')
             shared.gradio['Generate'] = gr.Button('Generate', elem_id='Generate', variant='primary')
             shared.gradio['Continue'] = gr.Button('Continue')
-
-        with gr.Row():
-            shared.gradio['Impersonate'] = gr.Button('Impersonate')
             shared.gradio['Regenerate'] = gr.Button('Regenerate')
             shared.gradio['Remove last'] = gr.Button('Remove last', elem_classes=['button_nowrap'])
-
-        with gr.Row():
-            shared.gradio['Copy last reply'] = gr.Button('Copy last reply')
-            shared.gradio['Replace last reply'] = gr.Button('Replace last reply')
-            shared.gradio['Send dummy message'] = gr.Button('Send dummy message')
-            shared.gradio['Send dummy reply'] = gr.Button('Send dummy reply')
-
         with gr.Row():
             shared.gradio['Clear history'] = gr.Button('Clear history')
             shared.gradio['Clear history-confirm'] = gr.Button('Confirm', variant='stop', visible=False)
             shared.gradio['Clear history-cancel'] = gr.Button('Cancel', visible=False)
-
-        with gr.Row():
-            shared.gradio['start_with'] = gr.Textbox(label='Start reply with', placeholder='Sure thing!', value=shared.settings['start_with'])
 
         with gr.Row():
             shared.gradio['mode'] = gr.Radio(choices=['chat', 'chat-instruct', 'instruct'], value=shared.settings['mode'] if shared.settings['mode'] in ['chat', 'instruct', 'chat-instruct'] else 'chat', label='Mode', info='Defines how the chat prompt is generated. In instruct and chat-instruct modes, the instruction template selected under Parameters > Instruction template must match the current model.')
@@ -157,34 +144,6 @@ def create_event_handlers():
         lambda: None, None, None, _js=f'() => {{{ui.audio_notification_js}}}')
     )
 
-    gen_events.append(shared.gradio['Impersonate'].click(
-        ui.gather_interface_values, gradio(shared.input_elements), gradio('interface_state')).then(
-        lambda x: x, gradio('textbox'), gradio('Chat input'), show_progress=False).then(
-        chat.impersonate_wrapper, gradio(inputs), gradio('textbox'), show_progress=False).then(
-        ui.gather_interface_values, gradio(shared.input_elements), gradio('interface_state')).then(
-        lambda: None, None, None, _js=f'() => {{{ui.audio_notification_js}}}')
-    )
-
-    shared.gradio['Replace last reply'].click(
-        ui.gather_interface_values, gradio(shared.input_elements), gradio('interface_state')).then(
-        chat.replace_last_reply, gradio('textbox', 'interface_state'), gradio('history')).then(
-        lambda: '', None, gradio('textbox'), show_progress=False).then(
-        chat.redraw_html, gradio(reload_arr), gradio('display')).then(
-        chat.save_persistent_history, gradio('history', 'character_menu', 'mode'), None)
-
-    shared.gradio['Send dummy message'].click(
-        ui.gather_interface_values, gradio(shared.input_elements), gradio('interface_state')).then(
-        chat.send_dummy_message, gradio('textbox', 'interface_state'), gradio('history')).then(
-        lambda: '', None, gradio('textbox'), show_progress=False).then(
-        chat.redraw_html, gradio(reload_arr), gradio('display')).then(
-        chat.save_persistent_history, gradio('history', 'character_menu', 'mode'), None)
-
-    shared.gradio['Send dummy reply'].click(
-        ui.gather_interface_values, gradio(shared.input_elements), gradio('interface_state')).then(
-        chat.send_dummy_reply, gradio('textbox', 'interface_state'), gradio('history')).then(
-        lambda: '', None, gradio('textbox'), show_progress=False).then(
-        chat.redraw_html, gradio(reload_arr), gradio('display')).then(
-        chat.save_persistent_history, gradio('history', 'character_menu', 'mode'), None)
 
     shared.gradio['Clear history'].click(lambda: [gr.update(visible=True), gr.update(visible=False), gr.update(visible=True)], None, gradio(clear_arr))
     shared.gradio['Clear history-cancel'].click(lambda: [gr.update(visible=False), gr.update(visible=True), gr.update(visible=False)], None, gradio(clear_arr))
@@ -223,8 +182,6 @@ def create_event_handlers():
         chat.load_history, gradio('load_chat_history', 'history'), gradio('history')).then(
         chat.redraw_html, gradio(reload_arr), gradio('display')).then(
         lambda: None, None, None, _js=f'() => {{{ui.switch_tabs_js}; switch_to_chat()}}')
-
-    shared.gradio['Copy last reply'].click(chat.send_last_reply_to_input, gradio('history'), gradio('textbox'), show_progress=False)
 
     # Save/delete a character
     shared.gradio['save_character'].click(

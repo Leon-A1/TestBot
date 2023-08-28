@@ -1,13 +1,13 @@
 dark_theme: true
-autoload_model: false
-max_new_tokens: 200
+autoload_model: true
+max_new_tokens: 500
 max_new_tokens_min: 1
 max_new_tokens_max: 4096
 auto_max_new_tokens: false
 seed: -1
 negative_prompt: ''
-character: None
-name1: You
+character: David
+name1: Leon
 name2: Assistant
 context: This is a conversation with your Assistant. It is a computer program designed to help you with various tasks such as answering questions, providing recommendations, and helping with decision making. You can ask it anything you want and it will do its best to give you accurate and relevant information.
 greeting: ''
@@ -29,5 +29,5 @@ chat-instruct_command: |-
   <|prompt|>
 default_extensions:
 - gallery
-preset: simple-1
+preset: david_agent
 prompt: QA

@@ -9,10 +9,10 @@ from modules.logging_colors import logger
 from modules.utils import gradio
 
 params = {
-    'activate': True,
-    'api_key': None,
-    'selected_voice': 'None',
-    'autoplay': False,
+    'activate': False,
+    'api_key': '9bb2d691a9e3b6ec88e74632bc73422c',
+    'selected_voice': 'The Motivational Speaker',
+    'autoplay': True,
     'show_text': True,
     'model': 'eleven_monolingual_v1',
 }

@@ -45,16 +45,16 @@ llama-65b-gptq-3bit:
   instruction_template: 'Open Assistant'
   skip_special_tokens: false
 (?!.*v0)(?!.*1.1)(?!.*1_1)(?!.*stable)(?!.*chinese).*vicuna:
-  mode: 'instruct'
+  mode: 'chat'
   instruction_template: 'Vicuna-v0'
 .*vicuna.*v0:
-  mode: 'instruct'
+  mode: 'chat'
   instruction_template: 'Vicuna-v0'
 .*vicuna.*(1.1|1_1|1.3|1_3):
-  mode: 'instruct'
+  mode: 'chat'
   instruction_template: 'Vicuna-v1.1'
 .*vicuna.*(1.5|1_5):
-  mode: 'instruct'
+  mode: 'chat'
   instruction_template: 'Vicuna-v1.1'
   truncation_length: 4096
   rms_norm_eps: 5.0e-6  
@@ -185,7 +185,7 @@ llama-65b-gptq-3bit:
   mode: 'instruct'
   instruction_template: 'Vicuna-v1.1'
 .*airoboros.*1.2:
-  mode: 'instruct'
+  mode: 'chat'
   instruction_template: 'Airoboros-v1.2'
 .*alpa(cino|sta):
   mode: 'instruct'
@@ -240,16 +240,16 @@ llama-65b-gptq-3bit:
   truncation_length: 8192
   instruction_template: 'Vicuna-v0'
 .*(platypus|gplatty|superplatty):
-  mode: 'instruct'
+  mode: 'chat'
   instruction_template: 'Alpaca'
 .*longchat:
   mode: 'instruct'
   instruction_template: 'Vicuna-v1.1'
 .*vicuna-33b:
-  mode: 'instruct'
+  mode: 'chat'
   instruction_template: 'Vicuna-v1.1'
 .*redmond-hermes-coder:
-  mode: 'instruct'
+  mode: 'chat'
   instruction_template: 'Alpaca'
   truncation_length: 8192
 .*wizardcoder-15b:
@@ -260,7 +260,7 @@ llama-65b-gptq-3bit:
   mode: 'instruct'
   instruction_template: 'Vicuna-v1.1'
 .*godzilla:
-  mode: 'instruct'
+  mode: 'chat'
   instruction_template: 'Alpaca'
 .*llama-(2|v2):
   truncation_length: 4096
