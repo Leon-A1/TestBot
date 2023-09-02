@@ -170,9 +170,9 @@ def create_event_handlers():
         stop_everything_event, None, None, queue=False, cancels=gen_events if shared.args.no_stream else None).then(
         chat.redraw_html, gradio(reload_arr), gradio('display'))
 
-    shared.gradio['mode'].change(
-        lambda x: gr.update(visible=x != 'instruct'), gradio('mode'), gradio('chat_style'), show_progress=False).then(
-        chat.redraw_html, gradio(reload_arr), gradio('display'))
+    # shared.gradio['mode'].change(
+    #     lambda x: gr.update(visible=x != 'instruct'), gradio('mode'), gradio('chat_style'), show_progress=False).then(
+    #     chat.redraw_html, gradio(reload_arr), gradio('display'))
 
     shared.gradio['chat_style'].change(chat.redraw_html, gradio(reload_arr), gradio('display'))
     shared.gradio['instruction_template'].change(

@@ -70,6 +70,7 @@ def create_interface():
     shared.persistent_interface_state.update({
         'loader': shared.args.loader or 'Transformers',
         'mode': shared.settings['mode'],
+        # 'mode': 'chat',
         'character_menu': shared.args.character or shared.settings['character'],
         'instruction_template': shared.settings['instruction_template']
     })
@@ -172,6 +173,7 @@ if __name__ == "__main__":
         'groupsize': 'None',
         'pre_layer': 0,
         'mode': shared.settings['mode'],
+        # 'mode': 'chat',
         'skip_special_tokens': shared.settings['skip_special_tokens'],
         'custom_stopping_strings': shared.settings['custom_stopping_strings'],
         'truncation_length': shared.settings['truncation_length'],

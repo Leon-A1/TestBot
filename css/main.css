@@ -93,6 +93,8 @@ div.svelte-15lo0d8 > *, div.svelte-15lo0d8 > .form > * {
     margin-bottom: 20px;
     display: inline !important;
     overflow-x: scroll;
+    /* display: none !important; */
+
 }
 
 .dark .header_bar {
